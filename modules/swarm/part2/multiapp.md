@@ -12,7 +12,7 @@ For this lab, we're going to use a docker compose file to deploy a multi-contain
 version: '3'
 services:
   mysql:
-    image: "mysql/mysql-server:latest"
+    image: "mysql/mysql-server:5.7"
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: readinglist
