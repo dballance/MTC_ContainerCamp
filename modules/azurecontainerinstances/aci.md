@@ -69,12 +69,12 @@ To support different developer environments, the .NET Core application will be d
 
 4. Add the following.  Make sure to replace **\<appname>** in **ENTRYPOINT** last line to match your application name. For example helloworld.dll
     ```
-    FROM microsoft/aspnetcore:2.0
+    FROM microsoft/dotnet:2.1-aspnetcore-runtime
     RUN apt-get update
-    RUN apt-get install -y curl unzip 
+    RUN apt-get install -y curl unzip procps
     RUN curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l ~/vsdbg
     WORKDIR /app
-    COPY ./bin/Debug/netcoreapp2.0/publish .
+    COPY ./bin/Debug/netcoreapp2.1/publish .
     EXPOSE 8080/tcp
     ENV ASPNETCORE_URLS http://*:8080
     ENTRYPOINT ["dotnet", "/app/helloworld.dll"]
@@ -154,6 +154,8 @@ To support different developer environments, the .NET Core application will be d
                 "justMyCode": true
     }
     ```
+    
+    > Note: If the debugger output shows `Error Message: spawn C:\WINDOWS\system32\cmd.exe ENOENT`, you may need to modify or remove the 'pipeTransport.pipeCwd' property so that the debugger can correctly find 'cmd.exe'.
 
 
 6. In VS Code, click on Debug icon in the left toolbar *insert image*
